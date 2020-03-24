@@ -92,10 +92,7 @@ func New(opts ...logger.Option) (logger.Logger, error) {
 	}
 
 	for _, opt := range opts {
-		err := opt.Apply(logger)
-		if err != nil {
-			return nil, err
-		}
+		opt.Apply(logger)
 	}
 
 	return logger, nil

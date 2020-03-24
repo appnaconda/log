@@ -10,8 +10,8 @@ type withLogLevel struct {
 	level logger.Level
 }
 
-func (lv withLogLevel) Apply(logger logger.Logger) error {
-	return logger.SetLevel(lv.level)
+func (lv withLogLevel) Apply(logger logger.Logger) {
+	logger.SetLevel(lv.level)
 }
 
 func WithFormat(format logger.Format) logger.Option {
@@ -22,6 +22,6 @@ type withLogFormat struct {
 	format logger.Format
 }
 
-func (f withLogFormat) Apply(logger logger.Logger) error {
-	return logger.SetOutputFormat(f.format)
+func (f withLogFormat) Apply(logger logger.Logger) {
+	logger.SetOutputFormat(f.format)
 }

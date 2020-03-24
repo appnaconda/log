@@ -6,7 +6,7 @@ import (
 )
 
 type Option interface {
-	Apply(logger Logger) error
+	Apply(logger Logger)
 }
 
 type Fields map[string]interface{}

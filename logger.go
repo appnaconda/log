@@ -1,8 +1,14 @@
 package logger
 
 import (
+	"errors"
 	"io"
 	"strings"
+)
+
+var (
+	ErrInvalidFormat   = errors.New("invalid log format")
+	ErrInvalidLogLevel = errors.New("invalid log level")
 )
 
 type Option interface {
@@ -38,9 +44,13 @@ var levelValue = map[string]Level{
 	"error": Error,
 }
 
-func ParseLevel(l string) (Level, bool) {
+func ParseLevel(l string) (Level, error) {
 	v, ok := levelValue[strings.ToLower(l)]
-	return v, ok
+	if !ok {
+		return Debug, ErrInvalidLogLevel
+	}
+
+	return v, nil
 }
 
 type Format int
@@ -64,9 +74,13 @@ var formatValue = map[string]Format{
 	"text": Text,
 }
 
-func ParseFormat(f string) (Format, bool) {
+func ParseFormat(f string) (Format, error) {
 	v, ok := formatValue[strings.ToLower(f)]
-	return v, ok
+	if !ok {
+		return Json, ErrInvalidFormat
+	}
+
+	return v, nil
 }
 
 type Logger interface {
@@ -88,6 +102,6 @@ type Logger interface {
 	With(fields Fields) Logger
 
 	SetLevel(level Level) error
+	SetFormat(format Format) error
 	SetOutput(output io.Writer)
-	SetOutputFormat(format Format) error
 }

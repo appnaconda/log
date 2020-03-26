@@ -1,4 +1,4 @@
-module github.com/appnaconda/logger
+module github.com/appnaconda/log
 
 go 1.13
 

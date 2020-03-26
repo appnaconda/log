@@ -1,27 +1,27 @@
 package option
 
-import "github.com/appnaconda/logger"
+import "github.com/appnaconda/log"
 
-func WithLevel(level logger.Level) logger.Option {
+func WithLevel(level log.Level) log.Option {
 	return withLogLevel{level: level}
 }
 
 type withLogLevel struct {
-	level logger.Level
+	level log.Level
 }
 
-func (lv withLogLevel) Apply(logger logger.Logger) {
+func (lv withLogLevel) Apply(logger log.Logger) {
 	logger.SetLevel(lv.level)
 }
 
-func WithFormat(format logger.Format) logger.Option {
+func WithFormat(format log.Format) log.Option {
 	return withLogFormat{format: format}
 }
 
 type withLogFormat struct {
-	format logger.Format
+	format log.Format
 }
 
-func (f withLogFormat) Apply(logger logger.Logger) {
-	logger.SetOutputFormat(f.format)
+func (f withLogFormat) Apply(logger log.Logger) {
+	logger.SetFormat(f.format)
 }
